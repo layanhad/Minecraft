@@ -1,0 +1,18 @@
+body{
+    background-size: cover;
+    background-image: url('../images/wallpaperflare.com_wallpaper\ \(1\).jpg');
+}
+
+#landingPage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 6rem;
+}
+
+#landingPage img{
+    width: 30rem;
+    height: 15rem;
+}
+
