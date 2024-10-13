@@ -7,16 +7,54 @@
     <title>World</title>
 </head>
 <body>
-    <section id="wold">
+    <section id="world">
+        <section id="grid"></section>
+
+        <button id="start"> Start Game</button>
+
+        <div id="worldSize" class="size"> 
+                Enter World Size: <input id="sizeInput" type="text" style="width: 20px;" maxlength="2">
+        </div>
+
         <section id="toolbox">
-            <button id="axe" class="tool">Axe</button>
-            <button id="pickaxe" class="tool">Pickaxe</button>
-            <button id="shovel" class="tool">Shovel</button>
+            <button id="axe" class="tool">
+                <img src="../images/Diamond_Axe_JE3_BE3.webp" alt="Axe">    
+            </button>
+            <button id="pickaxe" class="tool">
+                <img src="../images/Diamond_Pickaxe_JE3_BE3.webp" alt="Pickaxe">
+            </button>
+            <button id="shovel" class="tool">
+                <img src="../images/Diamond_Shovel_JE3_BE3.webp" alt="Shovel">
+            </button>
         </section>
 
-        <section id="inventory"></section>
-        
+        <section id="inventory">
+            <h3>Inventory</h3>
+            <div class="item" id="dirt" data-count="0">
+                <img src="../images/Dirt.jpg" alt="Dirt">
+                <span id="dirtCount">0</span>
+            </div>
+            <div class="item" id="stone" data-count="0">
+                <img src="../images/Stone.jpg" alt="Stone">
+                <span id="stoneCount">0</span>
+            </div>
+            <div class="item" id="wood" data-count="0">
+                <img src="../images/Wood.jpeg" alt="Wood">
+                <span id="woodCount">0</span>
+            </div>
+            <div class="item" id="grass" data-count="0">
+                <img src="../images/Grass.png" alt="Grass">
+                <span id="grassCount">0</span>
+            </div>
+            <div class="item" id="leaves" data-count="0">
+                <img src="../images/Leaves.jpeg" alt="Leaves">
+                <span id="leavesCount">0</span>
+            </div>
+        </section>
+
         <button id="reset">Reset World</button>
     </section>
+
+    <script src="js/world.js"></script>
 </body>
 </html>

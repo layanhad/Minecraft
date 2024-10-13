@@ -1,0 +1,9 @@
+.tool img{
+    width: 2rem;
+    height: 2rem;
+}
+
+#inventory .item img{
+    width: 3rem;
+    height: 3rem;
+}
