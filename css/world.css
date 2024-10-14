@@ -22,7 +22,14 @@ body {
     transition: border-color 0.3s ease;
 }
 
-#inventory .item img{
+.tool.selected ,#inventory .item.selected img{
+    border-color: yellow;
+    box-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+    
+}
+
+
+#inventory .item img,.tool.selected{
     width: 3rem;
     height: 3rem;
 }
