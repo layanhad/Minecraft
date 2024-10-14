@@ -1,11 +1,25 @@
 const grid = document.getElementById('grid');
 const startButton = document.getElementById('start');
 const sizeInput = document.getElementById('sizeInput');
+const tools = document.querySelectorAll('.tool');
+const inventoryItems = document.querySelectorAll('.item');
 
+let selectedTool = null;
+let selectedInventoryItem = null;
 let world = [];
 let initialWorld = [];
 let worldSize = 10; 
+let inventory = {
+    dirt: 0,
+    stone: 0,
+    wood: 0,
+    grass: 0,
+    leaves: 0
+};
+
 startButton.addEventListener('click', createWorld);
+tools.forEach(tool => tool.addEventListener('click', selectTool));
+inventoryItems.forEach(item => item.addEventListener('click', selectInventoryItem));
 
 function createWorld() {
     const size = parseInt(sizeInput.value, 10) || worldSize;
@@ -45,6 +59,7 @@ function createWorld() {
             }
 
             tile.dataset.type = tileType;
+            tile.addEventListener('click', handleTileClick);
             rowDiv.appendChild(tile);
             rowTiles.push(tile);
             initialRowTiles.push(tileType);
@@ -67,6 +82,7 @@ function createWorld() {
     }
 }
 
+
 function generateTree(grassLevel, col) {
     const treeHeight = Math.floor(Math.random() * 3) + 4;
 
@@ -85,6 +101,90 @@ function generateTree(grassLevel, col) {
                 world[leafRow][leafCol].dataset.type = 'leaves';
             }
         }
+    }
+}
+
+function handleTileClick(event) {
+    const tile = event.target;
+    const tileType = tile.dataset.type;
+
+    if (selectedTool && toolMatchesTile(selectedTool, tileType)) {
+        tile.dataset.type = 'sky'; 
+        addToInventory(tileType);
+    } 
+    else if (selectedInventoryItem && tileType === 'sky') {
+        if (inventory[selectedInventoryItem] > 0) {
+            tile.dataset.type = selectedInventoryItem;
+            removeFromInventory(selectedInventoryItem);
+    }}
+}
+
+
+function selectTool(event) {
+    if (selectedInventoryItem) {
+        inventoryItems.forEach(invItem => invItem.classList.remove('selected'));
+        selectedInventoryItem = null; 
+    }
+
+    tools.forEach(tool => tool.classList.remove('selected'));
+    event.currentTarget.classList.add('selected');
+
+    selectedTool = event.currentTarget.id;
+    console.log("Selected tool: ", selectedTool);
+}
+
+function selectInventoryItem(event) {
+    const item = event.currentTarget.id;
+
+    if (selectedTool) {
+        tools.forEach(tool => tool.classList.remove('selected'));
+        selectedTool = null; 
+    }
+
+    if (inventory[item] > 0) {
+        selectedInventoryItem = item;
+        inventoryItems.forEach(invItem => invItem.classList.remove('selected'));
+        event.currentTarget.classList.add('selected');
+    } else {
+        selectedInventoryItem = null;
+        inventoryItems.forEach(invItem => invItem.classList.remove('selected'));
+    }
+}
+
+
+function toolMatchesTile(tool, tileType) {
+    const toolMatches = {
+        axe: ['wood', 'leaves'],
+        pickaxe: ['stone'],
+        shovel: ['dirt', 'grass']
+    };
+    return toolMatches[tool] && toolMatches[tool].includes(tileType);
+}
+
+function addToInventory(type) {
+    inventory[type]++;
+    updateInventoryDisplay();
+}
+
+function removeFromInventory(type) {
+    if (inventory[type] > 0) {
+        inventory[type]--;
+        updateInventoryDisplay();
+
+        if (type === selectedInventoryItem && inventory[type] === 0) {
+            const selectedItem = document.getElementById(type);
+            if (selectedItem) {
+                selectedItem.classList.remove('selected');
+                selectedInventoryItem = null;
+            }
+        }
+    }
+}
+
+
+function updateInventoryDisplay() {
+    for (const type in inventory) {
+        document.getElementById(`${type}Count`).innerText = inventory[type];
     }
 }
 
