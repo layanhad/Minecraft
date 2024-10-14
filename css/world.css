@@ -1,9 +1,117 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; 
+}
+
 .tool img{
     width: 2rem;
     height: 2rem;
 }
 
+.tool ,#inventory .item{
+    cursor: pointer;
+    padding: 5px;
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
 #inventory .item img{
     width: 3rem;
     height: 3rem;
+}
+
+#left{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 20%;
+    height: 100vh;
+}
+
+#toolbox{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 25%;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+
+main {
+    display: flex; 
+    flex: 1;
+    overflow: auto;
+    height: 100vh; 
+}
+
+#left {
+    flex: 0 0 200px;
+    background-color: #f0f0f0; 
+    padding: 20px; 
+}
+
+#world {
+    flex: 1;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    background-color: #e0e0e0;
+
+}
+
+#inventory {
+    display: flex;
+    justify-content: center; 
+    padding: 10px; 
+    background-color: #d0d0d0;
+    position: fixed;
+    bottom: 0; 
+    left: 0; 
+    right: 0;
+    z-index: 1000; 
+}
+
+.row {
+    display: flex;
+}
+
+
+.tile {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ddd;
+    background-size: cover;
+    background-position: center;
+}
+
+.tile[data-type="dirt"] {
+    background-image: url('../images/Dirt.jpg');
+}
+
+.tile[data-type="stone"] {
+    background-image: url('../images/Stone.jpg');
+}
+
+.tile[data-type="wood"] {
+    background-image: url('../images/Wood.jpeg');
+}
+
+.tile[data-type="grass"] {
+    background-image: url('../images/grass.webp');
+}
+
+.tile[data-type="leaves"] {
+    background-image: url('../images/Leaves.jpeg');
+}
+
+.tile[data-type="sky"] {
+    background-color: lightblue;
 }
