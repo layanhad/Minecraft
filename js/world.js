@@ -24,6 +24,18 @@ tools.forEach(tool => tool.addEventListener('click', selectTool));
 inventoryItems.forEach(item => item.addEventListener('click', selectInventoryItem));
 
 function createWorld() {
+    inventory = {
+        dirt: 0,
+        stone: 0,
+        wood: 0,
+        grass: 0,
+        leaves: 0
+    };
+    updateInventoryDisplay();
+
+    deselectToolAndInventory();
+
+
     const size = parseInt(sizeInput.value, 10) || worldSize;
     if (isNaN(size) || size < 10 || size > 50) {
         alert("Please enter a valid world size between 10 and 50.");
@@ -105,6 +117,15 @@ function generateTree(grassLevel, col) {
         }
     }
 }
+
+function deselectToolAndInventory() {
+    tools.forEach(tool => tool.classList.remove('selected'));
+    selectedTool = null;
+
+    inventoryItems.forEach(item => item.classList.remove('selected'));
+    selectedInventoryItem = null;
+}
+
 
 function handleTileClick(event) {
     const tile = event.target;
