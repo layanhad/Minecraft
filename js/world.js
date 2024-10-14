@@ -1,5 +1,6 @@
 const grid = document.getElementById('grid');
 const startButton = document.getElementById('start');
+const resetButton = document.getElementById('reset');
 const sizeInput = document.getElementById('sizeInput');
 const tools = document.querySelectorAll('.tool');
 const inventoryItems = document.querySelectorAll('.item');
@@ -18,6 +19,7 @@ let inventory = {
 };
 
 startButton.addEventListener('click', createWorld);
+resetButton.addEventListener('click', resetWorld);
 tools.forEach(tool => tool.addEventListener('click', selectTool));
 inventoryItems.forEach(item => item.addEventListener('click', selectInventoryItem));
 
@@ -187,5 +189,33 @@ function updateInventoryDisplay() {
         document.getElementById(`${type}Count`).innerText = inventory[type];
     }
 }
+
+function resetWorld() {
+    inventory = {
+        dirt: 0,
+        stone: 0,
+        wood: 0,
+        grass: 0,
+        leaves: 0
+    };
+    updateInventoryDisplay();
+
+
+    grid.innerHTML = '';
+    world = [];
+    initialWorld.forEach(rowTypes => {
+        const rowDiv = document.createElement('div');
+        rowDiv.classList.add('row');
+        rowTypes.forEach(tileType => {
+            const tile = document.createElement('div');
+            tile.classList.add('tile');
+            tile.dataset.type = tileType;
+            tile.addEventListener('click', handleTileClick);
+            rowDiv.appendChild(tile);
+        });
+        grid.appendChild(rowDiv);
+    });
+}
+
 
 createWorld();
